@@ -11,6 +11,7 @@
 import numpy as np
 import ParameticLearningAlgroithm.dataSource as pd
 from sklearn.metrics import mean_squared_error, explained_variance_score
+import threading
 import matplotlib.pyplot as plt
 
 # pd.features=pd.features[:2]
@@ -37,29 +38,37 @@ def J(para, features, target):
 
 
 # 线性拟合参数
-para = np.array([1.1265787082229892, -0.17700206366312762, 0.06251803626578507, 0.07120968676534453, 1.145487214461865,
-                 1.071263866659266, 2.8441501643306384, 0.05593989309585012, -0.40110051778467004, 0.2605999597885871,
-                 -0.010046513153710013, -0.2872173734016564, 0.043761582366230865, -0.7580278959019118])
+para = np.array(
+    [1.3214190747119177, -0.20304530218574768, 0.05693978958304286, 0.025090380718581117, 1.3194338829139964,
+     1.1377088319284556, 4.743479574979944, 0.015085797177806013, -0.8501607216661536, 0.30843859004075524,
+     -0.0122030391340392, -0.3492701566578825, 0.023990672175949905, -0.588074211424225])
 # para=np.ones(numFeatures)
 # 步长
 step = 0.00000001
-
 errorJ = 10000
 accept = 4000
-k = 0
-while errorJ >= accept:
-    k += 1
-    if k == 100:
-        print('errorJ', errorJ)
-        print(para.tolist())
-        k = 0
-    for i in range(numTraining):
-        # print('errorJ', errorJ)
-        for j in range(numFeatures):
-            # print('(i,j)', i, j)
-            errorJ = J(para, trainData.features, trainData.target)
-            para[j] = para[j] + step * np.dot(err(trainData.target, para, trainData.features), trainData.features[:, j])
 
+
+def run(step, errorJ, accept):
+    k = 0
+    while errorJ >= accept:
+        k += 1
+        if k == 100:
+            print('errorJ', errorJ)
+            print(para.tolist())
+            k = 0
+        for i in range(numTraining):
+            # print('errorJ', errorJ)
+            for j in range(numFeatures):
+                # print('(i,j)', i, j)
+                errorJ = J(para, trainData.features, trainData.target)
+                para[j] = para[j] + step * np.dot(err(trainData.target, para, trainData.features),
+                                                  trainData.features[:, j])
+
+
+for i in range(64):
+    t = threading.Thread(target=run, args=(0.00000001, 10000, 0.0000000001))
+    t.start()
 print(para.tolist())
 mse = mean_squared_error(testData.target, h(para, testData.features))
 evs = explained_variance_score(testData.target, h(para, testData.features))
