@@ -47,7 +47,7 @@ para = np.array(
 # 步长
 step = 0.00000001
 errorJ = 10000
-accept = 4000
+accept = 400
 
 
 def run(step, errorJ, accept):
