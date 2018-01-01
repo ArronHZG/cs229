@@ -45,7 +45,7 @@ para = np.array([1.1265787082229892, -0.17700206366312762, 0.06251803626578507, 
 step = 0.00000001
 
 errorJ = 10000
-accept = 4000
+accept = 400
 k = 0
 while errorJ >= accept:
     k += 1
