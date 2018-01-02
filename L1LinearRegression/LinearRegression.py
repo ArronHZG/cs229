@@ -9,7 +9,7 @@
 
 '''
 import numpy as np
-import ParameticLearningAlgroithm.dataSource as pd
+import L1LinearRegression.dataSource as pd
 from sklearn.metrics import mean_squared_error, explained_variance_score
 import threading
 import matplotlib.pyplot as plt
