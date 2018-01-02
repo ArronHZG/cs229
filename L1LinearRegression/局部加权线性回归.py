@@ -14,11 +14,11 @@ from sklearn.metrics import mean_squared_error, explained_variance_score
 
 data = pd.Data(pd.features1, pd.target1)
 numData = len(data.target)
-numTraining = int(0.8 * numData)
+numTraining = numData
 # 设置x0=1
 data.features = np.concatenate([np.ones((1, numData)), data.features.transpose()]).transpose()
 numFeatures = len(data.features[0])
-para = np.array([1, 1, 1])
+
 
 
 def h(para, x):
@@ -46,20 +46,17 @@ def run(step, errorJ, accept,x):
     k = 0
     while errorJ[0]-errorJ[1] >= accept:
         for i in range(numTraining):
-            k += 1
-            if k == 1000:
-                print('errorJ', errorJ)
-                print(para.tolist())
-                k = 0
             for j in range(numFeatures):
                 errorJ[0],errorJ[1] = errorJ[1],Jw(para, data.features, data.target,1,x)
                 para[j] = para[j] + step * np.dot(err(data.target, para, data.features),
                                                   data.features[:, j])
+        print('errorJ', errorJ)
 
-x=np.array([1,2400,3])
-step = 0.00000001
+para = np.array([-100,0.1,100])
+x=np.array([1,3000,4])
+step = 0.000000001
 errorJ = [10000,9000]
 accept = 1
-run(step, errorJ, step,x)
+run(step, errorJ, accept, x)
 print(para.tolist())
 print(np.sum(np.dot(para,x.transpose())))
