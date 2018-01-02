@@ -15,7 +15,7 @@ import threading
 import matplotlib.pyplot as plt
 
 # pd.features=pd.features[:2]
-data = pd.Data(pd.features, pd.target)
+data = pd.Data(pd.features1, pd.target1)
 numData = len(data.target)
 numTraining = int(0.8 * numData)
 # 设置x0=1
@@ -58,6 +58,12 @@ print("Explained variance score =", round(evs, 2))
 print("J() = ", round(j, 2))
 
 '''
+[-70.43460183227586, 0.06384337561663134, 103.4360465116271]
+Mean squared error = 26.63
+Explained variance score = 1.0
+J() =  722.07
+
+
 [36.491103280361116, -0.10717055656035364, 0.0463952195297986, 0.02086023953217151, 2.6885613993179356, -17.795758660308916, 3.8047524602581624, 0.0007510617033193782, -1.4757587965198014, 0.30565503833908636, -0.012329346305268524, -0.9534635546905188, 0.009392512722189415, -0.5254666329007901]
 Mean squared error = 14.83
 Explained variance score = 0.46
