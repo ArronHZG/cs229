@@ -42,7 +42,6 @@ def theta(x,y):
     return (x.T * x).I * x.T * y.T
 
 para=theta(data.features,data.target)
-
 para=para.T.getA()
 para=para[0]
 print(para.tolist())
