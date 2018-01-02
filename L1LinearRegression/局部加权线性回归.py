@@ -60,3 +60,7 @@ accept = 1
 run(step, errorJ, accept, x)
 print(para.tolist())
 print(np.sum(np.dot(para,x.transpose())))
+'''
+[-100.00000613083503, 0.08212325462866515, 99.99997757339548]
+546.369668049
+'''
